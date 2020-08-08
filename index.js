@@ -18,7 +18,8 @@ app.use(bodyParser.json())
 
 app.get('/', function (req, res) {
     res.render("index", {
-        settings: settingsBill.getSettings()
+        settings: settingsBill.getSettings(),
+        totals: settingsBill.totals()
     });
 })
 
@@ -34,25 +35,21 @@ app.post("/settings", function (req, res) {
         criticalLevel: req.body.criticalLevel
     })
     console.log(settingsBill.getSettings())
-
     res.redirect("/")
-
-
 })
 
 app.post("/action", function (req, res) {
     res.redirect("/")
-//capture the bill type to add
-
+    //capture the bill type to add
+   // console.log();
+    settingsBill.recordAction(req.body.actionType)
 })
-
 app.get("/actions", function (req, res) {
-
-
-
+    res.render("actions", { actions: settingsBill.actions() })
 })
-app.get("/actions/:type", function (req, res) {
-
+app.get("/actions/:actionType", function (req, res) {
+    const actionType=req.params.actionType; 
+    res.render("actions", { actions: settingsBill.actionsFor(actionType) })
 
 
 })

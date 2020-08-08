@@ -1,16 +1,4 @@
-<!DOCTYPE html>
-<html>
-
-<head>
-  <meta charset="utf-8">
-  <title></title>
-  <link rel="stylesheet" href="css/skeleton.css">
-  <link rel="stylesheet" href="css/style.css">
-</head>
-
-<body>
-  <div class="container">
-    <div class="row">
+<div class="row">
 
       <div class="twelve columns box">
         <h3>Bill with settings</h3>
@@ -33,11 +21,11 @@
             <h5>Bill type</h5>
             <form action="/action" method="POST">
               <label class="">
-                <input type="radio" name="billItemTypeWithSettings" name="actionType" class="billItemTypeWithSettings">
+                <input type="radio"  name="actionType" value="call" class="billItemTypeWithSettings">
                 <span class="label-body">Call</span>
               </label>
               <label class="">
-                <input type="radio" name="billItemTypeWithSettings" name="actionType" class="billItemTypeWithSettings">
+                <input type="radio"  name="actionType" value="sms" class="billItemTypeWithSettings">
                 <span class="label-body">SMS</span>
               </label>
               <button class="button-primary" type="submit" name="button">Add</button>
@@ -48,21 +36,21 @@
             <table>
               <tr>
                 <td>
-                  <a href="/actions/calls">Call total</a>
+                  <a href="/actions/call">Call total</a>
                 </td>
-                <td>R<span class="callTotalSettings">34.00</span> </td>
+                <td>R<span class="callTotalSettings">{{totals.callTotal}}</span> </td>
               </tr>
               <tr>
                 <td>
                   <a href="/actions/sms">SMS total</a>
                 </td>
-                <td>R<span class="smsTotalSettings">7.35</span> </td>
+                <td>R<span class="smsTotalSettings">{{totals.smsTotal}}</span> </td>
               </tr>
               <tr>
                 <td>
                   <a href="/actions">Total</a>
                 </td>
-                <td> R<span class="totalSettings">41.35</span> </td>
+                <td> R<span class="totalSettings">{{totals.grandTotal}}</span> </td>
               </tr>
             </table>
 
@@ -90,8 +78,3 @@
         </div>
       </div>
     </div>
-  </div>
-
-</body>
-
-</html>
