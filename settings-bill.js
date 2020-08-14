@@ -94,8 +94,10 @@ module.exports = function SettingsBill() {
         return {
             smsTotal,
             callTotal,
-            grandTotal : grandTotal()
+            grandTotal : grandTotal(),
+        colors :totalsColor()
         }
+        
     }
 
     function hasReachedWarningLevel(){
@@ -104,8 +106,19 @@ module.exports = function SettingsBill() {
             && total < criticalLevel;
 
         return reachedWarningLevel;
-    }
+//   
+  }
+    function totalsColor(){
 
+if (hasReachedCriticalLevel()){
+    return "danger"
+}
+if (hasReachedWarningLevel()){
+return "warning"
+
+}console.log()
+
+    }
     function hasReachedCriticalLevel(){
         const total = grandTotal();
         return total >= criticalLevel;
@@ -118,6 +131,7 @@ module.exports = function SettingsBill() {
         actions,
         actionsFor,
         totals,
+        // totalsColor,
         hasReachedWarningLevel,
         hasReachedCriticalLevel
     }
