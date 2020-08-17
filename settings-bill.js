@@ -69,7 +69,7 @@ module.exports = function SettingsBill() {
         for (let index = 0; index < actionList.length; index++) {
             const action = actionList[index];
             // check this is the type we are doing the total for 
-            if (action.type === type&&total<criticalLevel) {
+            if (action.type === type && total < criticalLevel) {
                 // if it is add the total to the list
                 total += action.cost;
             }
@@ -97,14 +97,15 @@ module.exports = function SettingsBill() {
             grandTotal: grandTotal(),
             color: colorChange()
         }
+
     }
     function colorChange() {
         if (hasReachedWarningLevel()) {
-        
+
             return "warning";
         }
         else if (hasReachedCriticalLevel()) {
-      
+
             return "danger";
         }
     }
@@ -114,8 +115,8 @@ module.exports = function SettingsBill() {
             && total < criticalLevel;
 
         return reachedWarningLevel;
+        //   
     }
-
     function hasReachedCriticalLevel() {
         var total = grandTotal();
 
