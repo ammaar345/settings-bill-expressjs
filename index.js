@@ -2,16 +2,13 @@ const express = require("express");
 const exphbs = require('express-handlebars');
 const bodyParser = require("body-parser")
 const SettingsBill = require("./settings-bill")
-
-
 const app = express();
 const settingsBill = SettingsBill()
-
 
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.engine('handlebars', exphbs({
-    layoutsDir : './views/layouts'
+    layoutsDir: './views/layouts'
 }));
 app.use(express.static("public"))
 // parse application/x-www-form-urlencoded
@@ -29,8 +26,6 @@ app.get('/', function (req, res) {
 
 app.post("/settings", function (req, res) {
 
-
-
     settingsBill.setSettings({
         callCost: req.body.callCost,
         smsCost: req.body.smsCost,
@@ -44,17 +39,15 @@ app.post("/settings", function (req, res) {
 app.post("/action", function (req, res) {
     res.redirect("/")
     //capture the bill type to add
-   // console.log();
+    // console.log();
     settingsBill.recordAction(req.body.actionType)
 })
 app.get("/actions", function (req, res) {
     res.render("actions", { actions: settingsBill.actions() })
 })
 app.get("/actions/:actionType", function (req, res) {
-    const actionType=req.params.actionType; 
+    const actionType = req.params.actionType;
     res.render("actions", { actions: settingsBill.actionsFor(actionType) })
-
-
 })
 
 const PORT = process.env.PORT || 3011;
