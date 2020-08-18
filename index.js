@@ -2,8 +2,11 @@ const express = require("express");
 const exphbs = require('express-handlebars');
 const bodyParser = require("body-parser")
 const SettingsBill = require("./settings-bill")
-const app = express();
 const settingsBill = SettingsBill()
+const moment = require("moment");
+const recActions = settingsBill.actions();
+moment().format()
+const app = express();
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.engine('handlebars', exphbs({
@@ -45,13 +48,23 @@ app.post("/action", function (req, res) {
     }
 })
 app.get("/actions", function (req, res) {
-
-    res.render("actions", { actions: settingsBill.actions() })
-})
+    for (const key of recActions){
+        key.ago = moment(key.timestamp).fromNow() 
+        console.log(key.ago)
+      }
+      res.render('actions', {
+        actions: recActions
+      })})
 app.get("/actions/:actionType", function (req, res) {
     const actionType = req.params.actionType;
     if (!settingsBill.hasReachedCriticalLevel()) {
-        res.render("actions", { actions: settingsBill.actionsFor(actionType) })
+          const actionList = settingsBill.actionsFor(actionType)
+       for (const key of actionList){
+            key.ago = moment(key.timestamp).fromNow() 
+          }
+          res.render('actions', {
+            actions: actionList
+          })
     }
 })
 
