@@ -4,7 +4,6 @@ const bodyParser = require("body-parser")
 const SettingsBill = require("./settings-bill")
 const app = express();
 const settingsBill = SettingsBill()
-
 app.engine('handlebars', exphbs({ defaultLayout: 'main' }));
 app.set('view engine', 'handlebars');
 app.engine('handlebars', exphbs({
@@ -39,16 +38,20 @@ app.post("/settings", function (req, res) {
 app.post("/action", function (req, res) {
     res.redirect("/")
     //capture the bill type to add
-    // console.log();
+    // console.log();   
+    if (!settingsBill.hasReachedCriticalLevel()){
     settingsBill.recordAction(req.body.actionType)
-})
+
+}})
 app.get("/actions", function (req, res) {
+
     res.render("actions", { actions: settingsBill.actions() })
 })
 app.get("/actions/:actionType", function (req, res) {
     const actionType = req.params.actionType;
+    if (!settingsBill.hasReachedCriticalLevel()){
     res.render("actions", { actions: settingsBill.actionsFor(actionType) })
-})
+}})
 
 const PORT = process.env.PORT || 3011;
 app.listen(PORT, function () {

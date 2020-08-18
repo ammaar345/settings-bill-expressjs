@@ -25,7 +25,8 @@ module.exports = function SettingsBill() {
     }
 
     function recordAction(action) {
-
+        const moment = require("moment");
+        const now = new Date();
         let cost = 0;
         if (action === 'sms') {
             cost = smsCost;
@@ -37,7 +38,7 @@ module.exports = function SettingsBill() {
         actionList.push({
             type: action,
             cost,
-            timestamp: new Date()
+            timestamp: moment(now).fromNow()
         });
     }
 
