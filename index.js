@@ -39,19 +39,21 @@ app.post("/action", function (req, res) {
     res.redirect("/")
     //capture the bill type to add
     // console.log();   
-    if (!settingsBill.hasReachedCriticalLevel()){
-    settingsBill.recordAction(req.body.actionType)
+    if (!settingsBill.hasReachedCriticalLevel()) {
+        settingsBill.recordAction(req.body.actionType)
 
-}})
+    }
+})
 app.get("/actions", function (req, res) {
 
     res.render("actions", { actions: settingsBill.actions() })
 })
 app.get("/actions/:actionType", function (req, res) {
     const actionType = req.params.actionType;
-    if (!settingsBill.hasReachedCriticalLevel()){
-    res.render("actions", { actions: settingsBill.actionsFor(actionType) })
-}})
+    if (!settingsBill.hasReachedCriticalLevel()) {
+        res.render("actions", { actions: settingsBill.actionsFor(actionType) })
+    }
+})
 
 const PORT = process.env.PORT || 3011;
 app.listen(PORT, function () {
