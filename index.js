@@ -34,14 +34,12 @@ app.post("/settings", function (req, res) {
         warningLevel: req.body.warningLevel,
         criticalLevel: req.body.criticalLevel
     })
-    console.log(settingsBill.getSettings())
     res.redirect("/")
 })
 
 app.post("/action", function (req, res) {
     res.redirect("/")
-    //capture the bill type to add
-    // console.log();   
+    //capture the bill type to add  
     if (!settingsBill.hasReachedCriticalLevel()) {
         settingsBill.recordAction(req.body.actionType)
 
@@ -50,7 +48,7 @@ app.post("/action", function (req, res) {
 app.get("/actions", function (req, res) {
     for (const key of recActions){
         key.ago = moment(key.timestamp).fromNow() 
-        console.log(key.ago)
+        
       }
       res.render('actions', {
         actions: recActions
